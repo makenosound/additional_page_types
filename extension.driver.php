@@ -19,7 +19,7 @@
 						 'author' => array('name' => 'Max Wheeler',
 										   'website' => 'http://makenosound.com/',
 										   'email' => 'max@makenosound.com'),
- 						 'description' => 'Adds a few extra options for page output types'
+ 						 'description' => 'Adds JSON and CSV as page output types'
 				 		);
 		}
 		
@@ -59,6 +59,11 @@
       $page_id = $page->_param['current-page-id'];
       $current_page_types = $this->_get_page_types($page_id);
       
+      # Get out if we're debugging
+      if ($page->_Parent->isLoggedIn())
+        if (isset($_GET['debug']) OR isset($_GET['profile'])) return FALSE;
+      
+      # Make sure only *one* additional page type is being applied
       if (in_array('CSV', $current_page_types) && in_array('JSON', $current_page_types))
       {
         $this->_Parent->customError(E_USER_ERROR, 
@@ -66,7 +71,7 @@
   											__('You need to select JSON or CSV, not both.'), 
   											false, 
   											true, 
-  											'error', 
+  											'error',
   											array('header' => 'HTTP/1.0 404 Not Found'));
       }
       else if (in_array("CSV", $current_page_types))
@@ -74,7 +79,7 @@
         $page->_headers = array();
         $page->addHeaderToPage('Content-Type', 'text/csv');
         $page->addHeaderToPage('Cache-Control', 'no-store, no-cache');
-        $page->addHeaderToPage('Content-Disposition', 'attachment; filename="test.csv"');
+        $page->addHeaderToPage('Content-Disposition', 'attachment; filename="'. $page->_param['current-page'] .'.csv"');
       } 
       else if (in_array("JSON", $current_page_types))
       {
