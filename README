@@ -1,0 +1,19 @@
+Additional Page Types
+-------------------------------------------------------------------------------
+ 
+Version: 0.1
+Author: Max Wheeler <max@makenosound.com>
+Build Date: 02 March 2009
+Requirements: Symphony 2.0.1
+ 
+ 
+Installation
+-------------------------------------------------------------------------------
+ 
+1. Upload the 'addition_page_types' folder in this archive to your Symphony 'extensions'
+ folder.
+ 
+2. Enable it by selecting the "Additional Page Types", choose Enable from the
+  with-selected menu, then click Apply.
+ 
+3. You should be able to see some additional page types on the page edit/creation form.
